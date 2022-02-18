@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace TestProject
 {
@@ -28,6 +29,7 @@ namespace TestProject
             product = new ProductModel();
             product.Description = "Test desc";
             product.Id = 1;
+            product.Price = 5;
             
 
 
@@ -36,13 +38,29 @@ namespace TestProject
             item.Amount = 2;
             item.ShoppingCartId = "Test";
             item.ShoppingCartItemId = product.Id;
-
             
+
+
             await _db.ShoppingCartItems.AddAsync(item);
             await _db.SaveChangesAsync();
             _db.Database.EnsureCreated();
         }
+        private async Task CreateExtraProductandCartItem()
+        {
+            ProductModel product = new ProductModel();
+            product = new ProductModel();
+            product.Description = "Test desc2";
+            product.Id = 2;
+            product.Price = 5;
 
+            ShoppingCartItemModel item2 = new ShoppingCartItemModel();
+            item2.Product = product;
+            item2.Amount = 2;
+            item2.ShoppingCartId = "Test";
+            item2.ShoppingCartItemId = product.Id;
+            await _db.ShoppingCartItems.AddAsync(item2);
+            await _db.SaveChangesAsync();
+        }
         [Fact]
         public async void GetCartItemsSuccess()
         {
@@ -124,10 +142,9 @@ namespace TestProject
         [Fact]
         public async void RemoveProductFromCart_OutcomeRemLast()
         {
-            bool itemDeleted = false;
-            await CreateMocDBAsync();
-            //arrange
 
+            //arrange
+            await CreateMocDBAsync();
             var cart = new ShoppingCartModel(_db);
             cart.ShoppingCartId = "Test";
             ProductModel product = new ProductModel();
@@ -148,26 +165,45 @@ namespace TestProject
         [Fact]
         public async void ClearAll()
         {
-            
+
             //arrange
+            await CreateMocDBAsync();
+            var cart = new ShoppingCartModel(_db);
+            cart.ShoppingCartId = "Test";
 
-            
-
-
-
-
+            await CreateExtraProductandCartItem();
             //act 
-
-
-
+            cart.ClearCart();
+            cart.GetShoppingCartItems();
             //assert
+            Assert.Empty(cart.ShoppingCartItems);
             
 
         }
         [Fact]
         public async void GetTotal()
         {
+            //Arrange
+            await CreateMocDBAsync();
+            await CreateExtraProductandCartItem();
+            var cart = new ShoppingCartModel(_db);
+            cart.ShoppingCartId = "Test";
 
+            double expected = 0;
+
+            var ShoppingCartItems = _db.ShoppingCartItems.Where(c => c.ShoppingCartId == "Test");
+
+            foreach(var item in ShoppingCartItems)
+            {
+                expected = expected + item.Product.Price;
+            }
+
+            //Act
+            cart.GetShoppingCartItems();
+            var result = cart.GetShoppingCartTotal();
+            Console.WriteLine("");
+            //Assert
+            Assert.Equal(expected, result);
         }
 
 
