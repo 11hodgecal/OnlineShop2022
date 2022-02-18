@@ -102,6 +102,7 @@ namespace OnlineShop2022.Models
 
         public double GetShoppingCartTotal()
         {
+            //sums up the total by looping throgh the current shopping cart and sums up each item by times the price by the amount 
             var total = _appDbContext.ShoppingCartItems.Where(c => c.ShoppingCartId == ShoppingCartId)
                 .Select(c => c.Product.Price * c.Amount).Sum();
             return total;
