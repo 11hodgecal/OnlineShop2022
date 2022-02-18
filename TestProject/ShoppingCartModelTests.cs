@@ -55,7 +55,7 @@ namespace TestProject
 
             ShoppingCartItemModel item2 = new ShoppingCartItemModel();
             item2.Product = product;
-            item2.Amount = 2;
+            item2.Amount = 1;
             item2.ShoppingCartId = "Test";
             item2.ShoppingCartItemId = product.Id;
             await _db.ShoppingCartItems.AddAsync(item2);
@@ -125,7 +125,8 @@ namespace TestProject
             
             cart.RemoveFromCart(product);
 
-            var item = await _db.ShoppingCartItems.SingleOrDefaultAsync(s => s.ShoppingCartId == "Test");
+            var item = await _db.ShoppingCartItems.SingleOrDefaultAsync(
+                s => s.ShoppingCartId == "Test");
 
 
             //act 
@@ -156,14 +157,15 @@ namespace TestProject
             cart.RemoveFromCart(product);
             //act 
 
-            var item = await _db.ShoppingCartItems.SingleOrDefaultAsync(s => s.ShoppingCartId == "Test");
+            var item = await _db.ShoppingCartItems.SingleOrDefaultAsync(
+                s => s.ShoppingCartId == "Test");
 
             //assert
             Assert.Null(item);
 
         }
         [Fact]
-        public async void ClearAll()
+        public async void ClearAllCartItemsSuccess()
         {
 
             //arrange
@@ -181,7 +183,7 @@ namespace TestProject
 
         }
         [Fact]
-        public async void GetTotal()
+        public async void GetCartTotalSuccess()
         {
             //Arrange
             await CreateMocDBAsync();
@@ -195,7 +197,8 @@ namespace TestProject
 
             foreach(var item in ShoppingCartItems)
             {
-                expected = expected + item.Product.Price;
+                
+                expected = expected + (item.Product.Price * item.Amount);
             }
 
             //Act
