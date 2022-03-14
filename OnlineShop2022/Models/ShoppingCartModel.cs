@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OnlineShop2022.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,7 +18,6 @@ namespace OnlineShop2022.Models
         {
             _appDbContext = appDbContext;
         }
-
         public string ShoppingCartId { get; set; }
 
         public List<ShoppingCartItemModel> ShoppingCartItems { get; set; }

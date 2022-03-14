@@ -33,7 +33,7 @@ namespace TestProject
         }
 
         [Fact]
-        public void privacyNotNull()
+        public void PrivacyNotNull()
         {
             //Arrange
             CreateMocDB();
