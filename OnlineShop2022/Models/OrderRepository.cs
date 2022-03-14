@@ -37,6 +37,7 @@ namespace OnlineShop2022.Models
                     Price = shoppingCartItem.Product.Price
                     
                 };
+                //adds the item price to the order total
                 order.OrderTotal += shoppingCartItem.Product.Price;
                 _appDbContext.OrderDetails.Add(orderDetail);
             }
