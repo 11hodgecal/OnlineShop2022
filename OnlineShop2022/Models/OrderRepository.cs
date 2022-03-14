@@ -25,6 +25,8 @@ namespace OnlineShop2022.Models
 
             var shoppingCartItems = _shoppingCart.ShoppingCartItems;
 
+            order.OrderTotal = 0;
+
             foreach(var shoppingCartItem in shoppingCartItems)
             {
                 var orderDetail = new OrderDetailModel()
@@ -33,7 +35,9 @@ namespace OnlineShop2022.Models
                     ProductId = shoppingCartItem.Product.Id,
                     OrderId = order.OrderId,
                     Price = shoppingCartItem.Product.Price
+                    
                 };
+                order.OrderTotal += shoppingCartItem.Product.Price;
                 _appDbContext.OrderDetails.Add(orderDetail);
             }
             await _appDbContext.SaveChangesAsync();
