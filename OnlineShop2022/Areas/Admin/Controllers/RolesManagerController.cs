@@ -39,9 +39,11 @@ namespace OnlineShop2022.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                var role = await _roleManager.FindByIdAsync(id);
-                await _roleManager.DeleteAsync(role);
+                return RedirectToAction("Index");
             }
+
+            var role = await _roleManager.FindByIdAsync(id);
+            await _roleManager.DeleteAsync(role);
             return RedirectToAction("Index");
         }
 
