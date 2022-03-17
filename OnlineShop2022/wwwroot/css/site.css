@@ -47,7 +47,9 @@ button:disabled {
   opacity: 0.5;
   cursor: default;
 }
-
+.underline {
+    border-bottom: 1px solid #FFFFFF !important;
+}
 
 @-webkit-keyframes loading {
   0% {
