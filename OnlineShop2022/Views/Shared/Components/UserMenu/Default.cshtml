@@ -1,0 +1,35 @@
+﻿@model IEnumerable<OnlineShop2022.Components.UserMenuItem>
+@using OnlineShop2022.Models;
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<CustomUserModel> SignInManager
+@inject UserManager<CustomUserModel> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+
+
+<li class="nav-item dropdown mx-2">
+    
+    <a asp-controller="Admin" asp-action="Index" class="dropdown-toggle btn btn-outline-light" data-toggle="dropdown" >
+        <b class="caret">hello @User.Identity.Name</b>
+    </a>
+    <ul class="dropdown-menu">
+        @foreach(var item in Model)
+        {
+            @if (item.DisplayValue == "Account")
+            {
+                <li>
+                <a asp-area="@item.area" asp-page="@item.page" class="dropdown-item">@item.DisplayValue</a>
+                </li>
+            }
+            @if (item.DisplayValue == "Orders")
+            {
+                <li>
+                <a asp-controller="@item.Controller" asp-action="@item.Action" class="dropdown-item">@item.DisplayValue</a>
+                </li>
+            }
+            
+        }
+    </ul>
+</li>
+

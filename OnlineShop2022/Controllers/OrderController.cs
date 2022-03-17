@@ -93,7 +93,7 @@ namespace OnlineShop2022.Controllers
         public IActionResult CheckoutComplete()
         {
 
-            return View();
+            return RedirectToAction();
         }
     }
 }
