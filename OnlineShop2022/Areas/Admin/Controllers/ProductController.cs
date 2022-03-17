@@ -62,6 +62,37 @@ namespace OnlineShop2022.Areas.Admin
 
                     if (file != null)
                     {
+                        //gets the uploaded image
+                        var upload = Request.Form.Files[0];
+
+                        //gets the images extension
+                        string extenstion = Path.GetExtension(upload.FileName);
+
+                        //gets the root path
+                        string root = _webHostEnvironment.WebRootPath;
+
+                        //sets the webpath
+                        var webpath = $"/images/";
+                        //sets the full path to the image
+                        var path = $"{root}{webpath}";
+
+                        //sets the new file name
+                        var filename = $"{DateTime.Now.ToString("yymmssfff")}{extenstion}".ToLower();
+
+                        //sets the new display image path 
+                        vm.Product.ImagePath = $"{path}{filename}";
+
+                        //creates the directory set by the path
+                        Directory.CreateDirectory(path);
+
+                        //uploads the new file to the directory
+                        using (var filestream = new FileStream(vm.Product.ImagePath, FileMode.Create))
+                        {
+                            await upload.CopyToAsync(filestream);
+                        }
+
+                        //sets the new image path to the webpath followed by the filename
+                        vm.Product.ImagePath  = $"{webpath}{filename}";
                         vm.Product.ImagePath = _images.Upload(file, $"/images/products/");
 
                         await _db.Products.AddAsync(vm.Product);

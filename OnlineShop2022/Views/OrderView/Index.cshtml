@@ -1,5 +1,54 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<OnlineShop2022.Models.OrderViewModel>
 @{
+    DateTime displaytime;
+}
+
+
+<div class = "d-flex ">
+    <div class="">
+        <h3 class="">Your Orders</h3>
+    </div>
+
+    <div class="ms-auto ">
+        <a class="btn btn-secondary dropdown-toggle end" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Select time filter
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <button class="dropdown-item" >Last 60 days</button>
+            <button class="dropdown-item" >This year</button>
+        </div>
+    </div>
+</div>
+
+@foreach (var item in Model)
+{ 
+    <div class="pb-4">
+        <div class = "d-flex">
+            <div class="pe-5"><p>Order ID: @item.id</p></div>
+            <div class="pe-3"><p>Order Made: @item.ordertime.ToString("dd MMMM, yyyy") at @item.ordertime.ToString("h:mm tt")</p></div>
+            <div class="ms-auto"><p>Order Total: £@item.price</p></div>
+        </div>
+        <div class="underline"></div>
+
+        @foreach(var item2 in item.products)
+        {
+            <div class = "ms-3 d-flex pt-2">
+                <div class="pe-5">
+                    <p>Product name: @item2.ProductName</p>
+                </div>
+                <div class="pe-5">
+                    <p>Quantity: @item2.quantity</p>
+                </div>
+                <div class="pe-5">
+                    <p>Price: @item2.price</p>
+                </div>
+                <div class="ms-auto">
+                    <img height ="300" class=""  src="@item2.imageuri" />
+                </div>
+                </div>
+            
+            <div class="underline"></div>
+        }
+    </div>
 }
