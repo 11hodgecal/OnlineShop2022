@@ -21,7 +21,7 @@
             @if (item.DisplayValue == "Orders")
             {
                 <li>
-                    <a asp-controller="@item.Controller" asp-action="@item.Action" class="dropdown-item">@item.DisplayValue</a>
+                    <a asp-area="" asp-controller="@item.Controller" asp-action="@item.Action" class="dropdown-item">@item.DisplayValue</a>
                 </li>
             }
             
