@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OnlineShop2022.Models;
 using Stripe;
@@ -13,11 +14,15 @@ namespace OnlineShop2022.Controllers
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ShoppingCartModel _shoppingCart;
+        private readonly UserManager<CustomUserModel> _userManager;
+        private readonly SignInManager<CustomUserModel> _SignInManager;
 
-        public OrderController(IOrderRepository orderRepository, ShoppingCartModel shoppingCart)
+        public OrderController(IOrderRepository orderRepository, ShoppingCartModel shoppingCart, UserManager<CustomUserModel> userManager, SignInManager<CustomUserModel> signInManager)
         {
             _orderRepository = orderRepository;
             _shoppingCart = shoppingCart;
+            _userManager = userManager;
+            _SignInManager = signInManager;
         }
 
         public IActionResult Checkout()
@@ -70,7 +75,7 @@ namespace OnlineShop2022.Controllers
         }
 
         [HttpPost]
-        public IActionResult Checkout(OrderModel order)
+        public async Task<IActionResult> CheckoutAsync(OrderModel order)
         {
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
@@ -79,10 +84,13 @@ namespace OnlineShop2022.Controllers
             {
                 ModelState.AddModelError("", "Your cart is empty, please add some products.");
             }
-
+            // gets the current user id
+            var user = _SignInManager.Context.User;
+            var UserID = _userManager.GetUserAsync(user).Result.Id;
             if (ModelState.IsValid)
             {
-                _orderRepository.CreateOrder(order);
+                //passes throgh the order and the userID
+                _orderRepository.CreateOrder(order,UserID);
                 _shoppingCart.ClearCart();
                 return RedirectToAction("Payment", order);
             }

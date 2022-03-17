@@ -55,6 +55,8 @@ namespace OnlineShop2022.Models
         //[BindNever]
         //[ScaffoldColumn(false)]
         public double OrderTotal { get; set; }
+        //a user is attached to the order
+        public string UserID { get; set; }
 
         //[BindNever]
         //[ScaffoldColumn(false)]

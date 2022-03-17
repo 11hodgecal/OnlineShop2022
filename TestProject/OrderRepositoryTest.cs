@@ -14,7 +14,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Linq;
-
+using Moq;
 namespace TestProject
 {
     public class OrderRepositoryTest
@@ -31,20 +31,21 @@ namespace TestProject
             await _db.SaveChangesAsync();
             _db.Database.EnsureCreated();
         }
-        
 
+        
         [Fact]
         public async void OrderCreateSuccess()
         {
+
             //arrange
             CreateMocDBAsync();
-            
+
             ProductModel product = new ProductModel();
             product = new ProductModel();
             product.Description = "Test desc";
             product.Id = 1;
             product.Price = 5;
-            
+
             await _db.Products.AddAsync(product);
 
             var cart = new ShoppingCartModel(_db);
@@ -52,20 +53,30 @@ namespace TestProject
             cart.AddToCart(product, 1);
             cart.GetShoppingCartItems();
 
-            var repositiory = new OrderRepository(_db,cart);
-            
+            var repositiory = new OrderRepository(_db, cart);
 
-            var Order = new OrderModel {AddressLine1 = "test", AddressLine2 = "test",FirstName = "test", LastName = "test", 
-                City ="test", Postcode = "test", Country="uk",Email = "test1234@gmail.com", OrderId = 1 };
+
+            var Order = new OrderModel
+            {
+                AddressLine1 = "test",
+                AddressLine2 = "test",
+                FirstName = "test",
+                LastName = "test",
+                City = "test",
+                Postcode = "test",
+                Country = "uk",
+                Email = "test1234@gmail.com",
+                OrderId = 1
+            };
 
             var expected = 1;
             //act
-            repositiory.CreateOrder(Order);
+            repositiory.CreateOrder(Order,"test");
 
             //assert
-            
+
             Assert.Equal(expected, Order.OrderLines.Count);
-            
+
 
         }
         [Fact]
@@ -90,13 +101,23 @@ namespace TestProject
             var repositiory = new OrderRepository(_db, cart);
 
 
-            var Order = new OrderModel { AddressLine1 = "test", AddressLine2 = "test", FirstName = "test", LastName = "test", City = "test", 
-                Postcode = "test", Country = "uk", Email = "test1234@gmail.com", OrderId = 1 };
+            var Order = new OrderModel
+            {
+                AddressLine1 = "test",
+                AddressLine2 = "test",
+                FirstName = "test",
+                LastName = "test",
+                City = "test",
+                Postcode = "test",
+                Country = "uk",
+                Email = "test1234@gmail.com",
+                OrderId = 1
+            };
 
             double expected = 0.0;
 
             //act
-            repositiory.CreateOrder(Order);
+            repositiory.CreateOrder(Order,"test");
 
             foreach (var item in Order.OrderLines)
             {

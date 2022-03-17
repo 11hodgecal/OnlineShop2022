@@ -7,6 +7,6 @@ namespace OnlineShop2022.Models
 {
     public interface IOrderRepository
     {
-        void CreateOrder(OrderModel order);
+        void CreateOrder(OrderModel order, string Userid);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using OnlineShop2022.Data;
 using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace OnlineShop2022.Models
 {
@@ -14,8 +16,7 @@ namespace OnlineShop2022.Models
             _shoppingCart = shoppingCart;
         }
 
-
-        public async void CreateOrder(OrderModel order)
+        public async void CreateOrder(OrderModel order, string UserId)
         {
             order.OrderPlaced = DateTime.Now;
 
@@ -26,15 +27,18 @@ namespace OnlineShop2022.Models
             var shoppingCartItems = _shoppingCart.ShoppingCartItems;
 
             order.OrderTotal = 0;
+            //attaches the userid to the order
+            order.UserID = UserId;
 
-            foreach(var shoppingCartItem in shoppingCartItems)
+            foreach (var shoppingCartItem in shoppingCartItems)
             {
                 var orderDetail = new OrderDetailModel()
                 {
                     Amount = shoppingCartItem.Amount,
                     ProductId = shoppingCartItem.Product.Id,
                     OrderId = order.OrderId,
-                    Price = shoppingCartItem.Product.Price
+                    Price = shoppingCartItem.Product.Price,
+                    
                     
                 };
                 //adds the item price to the order total
