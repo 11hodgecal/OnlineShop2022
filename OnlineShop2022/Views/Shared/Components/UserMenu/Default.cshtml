@@ -1,10 +1,6 @@
 ﻿@model IEnumerable<OnlineShop2022.Components.UserMenuItem>
 @using OnlineShop2022.Models;
-@using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<CustomUserModel> SignInManager
-@inject UserManager<CustomUserModel> UserManager
-@inject RoleManager<IdentityRole> RoleManager
 
 
 
@@ -19,13 +15,13 @@
             @if (item.DisplayValue == "Account")
             {
                 <li>
-                <a asp-area="@item.area" asp-page="@item.page" class="dropdown-item">@item.DisplayValue</a>
+                    <a asp-area="@item.area" asp-page="@item.page" class="dropdown-item">@item.DisplayValue</a>
                 </li>
             }
             @if (item.DisplayValue == "Orders")
             {
                 <li>
-                <a asp-controller="@item.Controller" asp-action="@item.Action" class="dropdown-item">@item.DisplayValue</a>
+                    <a asp-controller="@item.Controller" asp-action="@item.Action" class="dropdown-item">@item.DisplayValue</a>
                 </li>
             }
             

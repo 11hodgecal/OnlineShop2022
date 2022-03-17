@@ -7,12 +7,14 @@ namespace OnlineShop2022.Components
     {
         public IViewComponentResult Invoke()
         {
+            //data for account dropdown item
             var menuItems = new List<UserMenuItem> { new UserMenuItem()
             {
                 DisplayValue = "Account",
                 area = "Identity",
                 page = "/Account/Manage/Index"
             },
+            //data for Order dropdown
             new UserMenuItem()
             {
                 DisplayValue = "Orders",
