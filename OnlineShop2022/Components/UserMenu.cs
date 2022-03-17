@@ -18,8 +18,8 @@ namespace OnlineShop2022.Components
             new UserMenuItem()
             {
                 DisplayValue = "Orders",
-                Controller = "adfadfa",
-                Action = "adfadf",
+                Controller = "OrderView",
+                Action = "Index",
             }};
 
             return View(menuItems);
