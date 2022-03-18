@@ -1,5 +1,7 @@
 ﻿@model List<OnlineShop2022.Models.OrderViewModel>
+
 @{
+    
     DateTime displaytime;
 }
 
@@ -11,12 +13,25 @@
 
     <div class="ms-auto ">
         <a class="btn btn-secondary dropdown-toggle end" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Select time filter
+            @ViewBag.filterContent
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <button class="dropdown-item" >Last 60 days</button>
-            <button class="dropdown-item" >This year</button>
+            @if (ViewBag.filterContent == "This year")
+            {
+                <form asp-action="Index" method="post">
+                    <input type="hidden" name="filter" value="last 60 days" />
+                    <input type = "submit" class="dropdown-item" value = "last 60 days">
+                </form>
+            }
+            @if (ViewBag.filterContent == "last 60 days")
+            {
+                <form asp-action="Index" method="post">
+                    <input type="hidden" name="filter" value="This year" />
+                    <input type ="submit" value = "This year" class="dropdown-item" >
+                </form>
+            }
+            
         </div>
     </div>
 </div>
@@ -41,7 +56,14 @@
                     <p>Quantity: @item2.quantity</p>
                 </div>
                 <div class="pe-5">
-                    <p>Price: @item2.price</p>
+                    @if(item2.quantity == 1)
+                    {
+                        <p>Price: £@item2.price</p>
+                    }
+                    @if(item2.quantity > 1)
+                    {
+                        <p>Price: £@item2.price (per item)</p>
+                    }
                 </div>
                 <div class="ms-auto">
                     <img height ="300" class=""  src="@item2.imageuri" />
