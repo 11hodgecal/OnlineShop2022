@@ -77,8 +77,11 @@
                 if(item.ordertime.AddDays(60) <= DateTime.Now){
                     <p>The Two month refund period has expired</p>
                 }
-                if(item.ordertime.AddDays(60) >= DateTime.Now){
-                    <input type ="submit" value = "Refund Item" class="btn btn-primary" >
+                if(item.ordertime.AddDays(60) >= DateTime.Now && item2.RequestMade == false){
+                    <a class="btn btn-primary" asp-route-id="@item2.Id" asp-controller = "CustomerRefund" asp-action ="Index">Refund Item</a>
+                }
+                if(item2.RequestMade == true){
+                    <p>we have recived your refund request and will get back to you soon</p>
                 }
             }
             if(item.ordertime.AddDays(7) >= DateTime.Now)

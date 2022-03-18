@@ -1,0 +1,27 @@
+﻿@model OnlineShop2022.Models.RefundModel
+
+<h1>Refund Item</h1>
+
+<div class="container">
+    <form method="post" asp-action="Index" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="">
+            <input asp-for ="OrderdetailID"  type="hidden" class="form-control" id="OrderdetailID" placeholder="OrderdetailID">
+            <div class="mb-3">
+                <label for="Reason" class="form-label">Reason</label>
+                <input asp-for ="Reason"  type="text" class="form-control" id="Reason" placeholder="Description" name="Reason">
+                <span  asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="ProofImgPath" class="form-label">Evidence</label>
+                <input class="form-control" asp-for="ProofImgPath" type="file" id="ProofImgPath" accept="image/*" name="ProofImgPath">
+                <span asp-validation-for="ProofImgPath" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Refund Product</button>
+            </div>
+        </div>
+    </form>
+
+</div>

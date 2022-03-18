@@ -92,7 +92,7 @@ namespace OnlineShop2022.Areas.Admin
                         }
 
                         //sets the new image path to the webpath followed by the filename
-                        vm.Product.ImagePath  = $"{webpath}{filename}";
+                        vm.Product.ImagePath = $"{webpath}{filename}";
                         vm.Product.ImagePath = _images.Upload(file, $"/images/products/");
 
                         await _db.Products.AddAsync(vm.Product);

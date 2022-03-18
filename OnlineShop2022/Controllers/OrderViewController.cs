@@ -88,6 +88,18 @@ namespace OnlineShop2022.Controllers
                     //gets the product attach to the detail
                     var product = _db.Products.Where(s => s.Id == orderDetail.ProductId).FirstOrDefault();
 
+                    //checks whether a refund requests has been made and returns a bool attached to the order item view model
+                    var request = _db.refunds.Where(s => s.OrderdetailID == orderDetail.OrderId).FirstOrDefault();
+
+                    if (request != null)
+                    {
+                        orderitem.RequestMade = true;
+                    }
+                    if (request == null)
+                    {
+                        orderitem.RequestMade = false;
+                    }
+
                     //adds the relevent product information to the product view model
                     orderitem.imageuri = product.ImagePath;
                     orderitem.ProductName = product.Description;

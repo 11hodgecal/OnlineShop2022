@@ -12,6 +12,7 @@ namespace OnlineShop2022.Data
         public DbSet<CategoryModel> Categories { get; set; }
         public DbSet<ShoppingCartItemModel> ShoppingCartItems { get; set; }
         public DbSet<OrderModel> Orders { get; set; }
+        public DbSet<RefundModel> refunds { get; set; }
         public DbSet<OrderDetailModel> OrderDetails { get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
