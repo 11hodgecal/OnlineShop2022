@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop2022.Models
 {
+    //allows the order detail to be stored
     public class OrderDetailModel
     {
         [Key]
@@ -15,6 +16,7 @@ namespace OnlineShop2022.Models
         public int ProductId { get; set; }
         public int Amount { get; set; }
         public double Price { get; set; }
+        //whether the items been refunded or not
         [DefaultValue(false)]
         public bool refunded { get; set; }
         public virtual ProductModel Product { get; set; }

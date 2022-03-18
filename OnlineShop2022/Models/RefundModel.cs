@@ -2,6 +2,7 @@
 
 namespace OnlineShop2022.Models
 {
+    //allows the storing of refunds 
     public class RefundModel
     {
         [Key]
