@@ -70,7 +70,23 @@
                 </div>
             </div>
             
-            <div class="underline"></div>
+            if(item.ordertime.AddDays(7) <= DateTime.Now)
+            {
+                <h6>Item Delivered </h6>
+                
+                if(item.ordertime.AddDays(60) <= DateTime.Now){
+                    <p>The Two month refund period has expired</p>
+                }
+                if(item.ordertime.AddDays(60) >= DateTime.Now){
+                    <input type ="submit" value = "Refund Item" class="btn btn-primary" >
+                }
+            }
+            if(item.ordertime.AddDays(7) >= DateTime.Now)
+            {
+                <h6>Item on its way</h6>
+            }
+            <div class="underline pb-2"></div>
         }
+            
     </div>
 }
