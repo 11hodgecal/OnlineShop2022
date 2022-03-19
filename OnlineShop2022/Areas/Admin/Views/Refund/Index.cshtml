@@ -1,0 +1,17 @@
+﻿@model List<OnlineShop2022.Models.RefundViewModel>
+
+@foreach(var item in Model)
+{
+    <div class = "pb-3">
+        <div class="underline"></div>
+        <h2>Active Refunds</h2>
+        <h3>Refund issued for £@item.Price for @item.ItemName by: @item.UserEmail</h3>
+        <h4>Order ID:@item.Orderid</h4>
+        <h4>Reason:</h4>
+        <p>@item.Reason</p>
+        <h4>Evidence:</h4>
+        <img height ="400" src="@item.ProofImgPath" />
+        <div class="underline pt-1"></div>
+
+    </div>
+}

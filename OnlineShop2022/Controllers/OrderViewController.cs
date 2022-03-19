@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineShop2022.Data;
@@ -23,6 +24,7 @@ namespace OnlineShop2022.Controllers
             _signInManager = signInManager;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             
@@ -37,6 +39,8 @@ namespace OnlineShop2022.Controllers
             return View(list.OrderByDescending(s=>s.ordertime).Where(s=> s.ordertime > DateTime.Now.AddDays(-60)).ToList());
 
         }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Index(string filter)
         {
@@ -59,7 +63,8 @@ namespace OnlineShop2022.Controllers
             
         }
 
-        
+
+        [Authorize]
         public async void GetUsersOrders(List<OrderViewModel> UserOrders)
         {
             //gets the current user

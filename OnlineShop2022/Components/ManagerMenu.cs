@@ -19,6 +19,11 @@ namespace OnlineShop2022.Components
             {
                 DisplayValue = "Product Management",
                 ControllerValue = "Product"
+            },
+            new ManagerMenuItem()
+            {
+                DisplayValue = "Manage Refunds",
+                ControllerValue = "Refund"
             }};
 
             return View(menuItems);
