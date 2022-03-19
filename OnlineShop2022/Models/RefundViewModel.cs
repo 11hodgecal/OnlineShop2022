@@ -3,7 +3,7 @@
     public class RefundViewModel
     {
         //manager refund view model
-
+        public int RefundId { get; set; }
         public int OrderDetailid { get; set; }
         public string Reason { get; set; }
         public string ProofImgPath { get; set; }

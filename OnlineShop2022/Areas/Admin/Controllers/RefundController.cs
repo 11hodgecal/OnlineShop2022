@@ -33,6 +33,7 @@ namespace OnlineShop2022.Areas.Admin.Controllers
                 var Orderdetail = await _db.OrderDetails.Where(s => s.OrderDetailId == activeRefundRequest.OrderdetailID).FirstOrDefaultAsync();
                 var product = _db.Products.Where(s => s.Id == Orderdetail.ProductId).FirstOrDefaultAsync();
                 var order = await _db.Orders.Where(s => s.OrderId == Orderdetail.OrderId).FirstOrDefaultAsync();
+                item.RefundId = activeRefundRequest.RefundId;
                 item.UserEmail = _userManager.FindByIdAsync(order.UserID).Result.Email;
                 item.ItemName = product.Result.Description;
                 item.Orderid = Orderdetail.OrderId;
@@ -40,6 +41,21 @@ namespace OnlineShop2022.Areas.Admin.Controllers
                 items.Add(item);
             }
             return View(items);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(int RefundID, string Mephod)
+        {
+            var SRefund = await _db.refunds.Where(s => s.RefundId == RefundID).FirstOrDefaultAsync();
+            if (Mephod == "Accept")
+            {
+                SRefund.IsRefunded = true;
+            }
+            if (Mephod == "Decline")
+            {
+                SRefund.IsDeclined = true;
+            }
+            _db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
     }
 }

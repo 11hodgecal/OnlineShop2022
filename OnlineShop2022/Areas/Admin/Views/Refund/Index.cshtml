@@ -1,17 +1,35 @@
 ﻿@model List<OnlineShop2022.Models.RefundViewModel>
-
+<h2>Active Refunds</h2>
 @foreach(var item in Model)
 {
     <div class = "pb-3">
         <div class="underline"></div>
-        <h2>Active Refunds</h2>
+        
         <h3>Refund issued for £@item.Price for @item.ItemName by: @item.UserEmail</h3>
         <h4>Order ID:@item.Orderid</h4>
         <h4>Reason:</h4>
         <p>@item.Reason</p>
         <h4>Evidence:</h4>
         <img height ="400" src="@item.ProofImgPath" />
+        <div class = "d-flex pt-1">
+            <div class= "pe-3">
+                <form asp-action="Index" method="post">
+                    <input type="hidden" name="RefundID" value="@item.RefundId" />
+                    <input type="hidden" name="Mephod" value="Accept" />
+                    <input type = "submit" class="btn btn-primary" value = "Accept">
+                </form>
+            </div>
+            <div class= "pe-3">
+                <form asp-action="Index" method="post">
+                    <input type="hidden" name="RefundID" value="@item.RefundId" />
+                    <input type="hidden" name="Mephod" value="Decline" />
+                    <input type ="submit" class="btn btn-danger" class="dropdown-item" value = "Decline">
+                </form>
+            </div>
+        </div>
         <div class="underline pt-1"></div>
+        
+            
 
     </div>
 }
