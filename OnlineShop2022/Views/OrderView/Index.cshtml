@@ -17,14 +17,14 @@
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            @if (ViewBag.filterContent == "This year")
+            @if (ViewBag.filterContent == "This year")// shows orders in the current year
             {
                 <form asp-action="Index" method="post">
                     <input type="hidden" name="filter" value="last 60 days" />
                     <input type = "submit" class="dropdown-item" value = "last 60 days">
                 </form>
             }
-            @if (ViewBag.filterContent == "last 60 days")
+            @if (ViewBag.filterContent == "last 60 days")// shows orders in the last 2 months
             {
                 <form asp-action="Index" method="post">
                     <input type="hidden" name="filter" value="This year" />
@@ -36,7 +36,7 @@
     </div>
 </div>
 
-@foreach (var item in Model)
+@foreach (var item in Model)//prints out each order
 { 
     <div class="pb-4">
         <div class = "d-flex">
@@ -46,7 +46,7 @@
         </div>
         <div class="underline"></div>
 
-        @foreach(var item2 in item.products)
+        @foreach(var item2 in item.products)//prints out each order item in the order
         {
             <div class = "ms-3 d-flex pt-2 pb-2">
                 <div class="pe-5">
@@ -56,11 +56,11 @@
                     <p>Quantity: @item2.quantity</p>
                 </div>
                 <div class="pe-5">
-                    @if(item2.quantity == 1)
+                    @if(item2.quantity == 1)//if there there is only one item display just the price
                     {
                         <p>Price: £@item2.price</p>
                     }
-                    @if(item2.quantity > 1)
+                    @if(item2.quantity > 1) //if there there is only one item display the price each
                     {
                         <p>Price: £@item2.price (per item)</p>
                     }
@@ -70,34 +70,36 @@
                 </div>
             </div>
             
-            if(item.ordertime.AddDays(7) <= DateTime.Now)
+            if(item.ordertime.AddDays(7) <= DateTime.Now)// assume its not deliverd more then a week
             {
                 <h6>Item Delivered </h6>
                 
-                if(item.ordertime.AddDays(60) <= DateTime.Now){
+                if(item.ordertime.AddDays(60) <= DateTime.Now)//if the order is more then 2 months they cannot refund a item
+                {
                     <p>The Two month refund period has expired</p>
                 }
-                if(item.ordertime.AddDays(60) >= DateTime.Now && item2.RequestMade == false){
+                if(item.ordertime.AddDays(60) >= DateTime.Now && item2.RequestMade == false) //if the order is less then 2 months and a refund request is not present they can refund a item
+                {
                     <a class="btn btn-primary" asp-route-id="@item2.Id" asp-controller = "CustomerRefund" asp-action ="Index">Refund Item</a>
                 }
-                if(item2.RequestMade == true){
-                    if(item2.Refunded == false && item2.RefundRejected == false)
+                if(item2.RequestMade == true)// if a refund request has been made show the progress of it
+                {
+                    if(item2.Refunded == false && item2.RefundRejected == false)// if the refund is awaiting a reply say its in progress 
                     {
                         <p>we have recived your refund request and will get back to you soon</p>
                     }
-                    if(item2.Refunded == true && item2.RefundRejected == false)
+                    if(item2.Refunded == true && item2.RefundRejected == false)// if the items refund has been accepted tell them they will recive there money
                     {
                         <p>Your item has been accepted for refund you will recive your money back</p>
                     }
-                    if(item2.Refunded == false && item2.RefundRejected == true)
+                    if(item2.Refunded == false && item2.RefundRejected == true)// if the refund has been delined tell the user it has been rejected
                     {
                         <p>Your refund has been rejected</p>
-                        <a class="btn btn-primary" asp-route-id="@item2.Id" asp-controller = "CustomerRefund" asp-action ="Index">Refund Item</a>
                     }
                     
                 }
             }
-            if(item.ordertime.AddDays(7) >= DateTime.Now)
+            if(item.ordertime.AddDays(7) >= DateTime.Now)// assume its not deliverd when under a week
             {
                 <h6>Item on its way</h6>
             }

@@ -32,7 +32,7 @@
 
         }
 
-        @await Component.InvokeAsync("UserMenu")
+        @await Component.InvokeAsync("UserMenu")//loads user menu
         <li class="nav-item mx-2">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button id="logout" type="submit" class="btn btn-outline-dark">Logout</button>
