@@ -98,7 +98,9 @@ namespace OnlineShop2022.Controllers
 
                     if (request != null)
                     {
+                        //if a refund is made say it is true
                         orderitem.RequestMade = true;
+                        //if the refund has been accepted or denied say its true
                         if (request.IsRefunded == true)
                         {
                             orderitem.Refunded = true;
@@ -108,6 +110,7 @@ namespace OnlineShop2022.Controllers
                             orderitem.RefundRejected = true;
                         }
                     }
+                    //if theres no refund request say that there is none
                     if (request == null)
                     {
                         orderitem.RequestMade = false;
@@ -118,6 +121,7 @@ namespace OnlineShop2022.Controllers
                     orderitem.ProductName = product.Description;
                     orderitem.price = product.Price;
                     orderitem.total = orderitem.price * orderitem.quantity;
+                    //only add to the total if the item has not been refunded
                     if(orderitem.Refunded == false)
                     {
                         order.price += orderitem.total;

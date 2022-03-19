@@ -43,6 +43,7 @@ namespace OnlineShop2022.Controllers
             var paymentIntentService = new PaymentIntentService();
             var paymentIntent = paymentIntentService.Create(new PaymentIntentCreateOptions
             {
+
                 Amount = CalculateOrderAmount(request.Items),
                 Currency = "gbp",
                 AutomaticPaymentMethods = new PaymentIntentAutomaticPaymentMethodsOptions
