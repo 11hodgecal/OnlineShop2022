@@ -99,6 +99,14 @@ namespace OnlineShop2022.Controllers
                     if (request != null)
                     {
                         orderitem.RequestMade = true;
+                        if (request.IsRefunded == true)
+                        {
+                            orderitem.Refunded = true;
+                        }
+                        if (request.IsDeclined == true)
+                        {
+                            orderitem.RefundRejected = true;
+                        }
                     }
                     if (request == null)
                     {
@@ -110,7 +118,10 @@ namespace OnlineShop2022.Controllers
                     orderitem.ProductName = product.Description;
                     orderitem.price = product.Price;
                     orderitem.total = orderitem.price * orderitem.quantity;
-                    order.price += orderitem.total;
+                    if(orderitem.Refunded == false)
+                    {
+                        order.price += orderitem.total;
+                    }
                     //adds the product view model to the order items
                     orderItems.Add(orderitem);
                 }

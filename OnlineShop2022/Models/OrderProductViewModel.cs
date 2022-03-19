@@ -10,5 +10,7 @@
         public int quantity { get; set; }
         public double total { get; set; }
         public bool RequestMade { get; set; }
+        public bool Refunded { get; set; }
+        public bool RefundRejected { get; set; }
     }
 }

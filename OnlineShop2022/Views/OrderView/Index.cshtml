@@ -81,7 +81,20 @@
                     <a class="btn btn-primary" asp-route-id="@item2.Id" asp-controller = "CustomerRefund" asp-action ="Index">Refund Item</a>
                 }
                 if(item2.RequestMade == true){
-                    <p>we have recived your refund request and will get back to you soon</p>
+                    if(item2.Refunded == false && item2.RefundRejected == false)
+                    {
+                        <p>we have recived your refund request and will get back to you soon</p>
+                    }
+                    if(item2.Refunded == true && item2.RefundRejected == false)
+                    {
+                        <p>Your item has been accepted for refund you will recive your money back</p>
+                    }
+                    if(item2.Refunded == false && item2.RefundRejected == true)
+                    {
+                        <p>Your refund has been rejected</p>
+                        <a class="btn btn-primary" asp-route-id="@item2.Id" asp-controller = "CustomerRefund" asp-action ="Index">Refund Item</a>
+                    }
+                    
                 }
             }
             if(item.ordertime.AddDays(7) >= DateTime.Now)
