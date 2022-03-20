@@ -91,30 +91,29 @@ namespace OnlineShop2022.Controllers
                     var orderitem = new OrderProductViewModel() { Id = orderDetail.OrderDetailId, quantity = orderDetail.Amount };
 
                     //gets the product attach to the detail
-                    var product = _db.Products.Where(s => s.Id == orderDetail.ProductId).FirstOrDefault();
+                    var product = _db.Products.Where(s => s.Id == orderDetail.ProductId).FirstOrDefaultAsync().Result;
 
                     //checks whether a refund requests has been made and returns a bool attached to the order item view model
-                    var request = _db.refunds.Where(s => s.OrderdetailID == orderDetail.OrderId).FirstOrDefault();
-
-                    if (request != null)
+                    var request = await _db.refunds.ToListAsync();
+                    foreach(var req in request)
                     {
-                        //if a refund is made say it is true
-                        orderitem.RequestMade = true;
-                        //if the refund has been accepted or denied say its true
-                        if (request.IsRefunded == true)
+                        if (req.OrderdetailID == orderDetail.OrderDetailId)
                         {
-                            orderitem.Refunded = true;
-                        }
-                        if (request.IsDeclined == true)
-                        {
-                            orderitem.RefundRejected = true;
+                            //if a refund is made say it is true
+                            orderitem.RequestMade = true;
+                            //if the refund has been accepted or denied say its true
+                            if (req.IsRefunded == true)
+                            {
+                                orderitem.Refunded = true;
+                            }
+                            if (req.IsDeclined == true)
+                            {
+                                orderitem.RefundRejected = true;
+                            }
                         }
                     }
-                    //if theres no refund request say that there is none
-                    if (request == null)
-                    {
-                        orderitem.RequestMade = false;
-                    }
+                    
+                    
 
                     //adds the relevent product information to the product view model
                     orderitem.imageuri = product.ImagePath;
