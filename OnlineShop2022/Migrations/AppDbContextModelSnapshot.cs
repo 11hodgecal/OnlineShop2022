@@ -282,9 +282,9 @@ namespace OnlineShop2022.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEdI2fgKhx4yBdsidzZh0HNW+s+t4SQ1obgIfipTxvIb22ZvVAi/JxZxdHHFYxVOMQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEDmWtRGUofMXb/s50dLcUifBaRISuX5rFNLkvqmyWq/giqSEVsID0s/FPZSGyBKCw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "84be96a5-fd6a-4e76-b459-0553ea5c826a",
+                            SecurityStamp = "0d1f3306-a371-4a74-92fe-1eb0fd8c848a",
                             Sname = "Admin",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"

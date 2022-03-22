@@ -9,8 +9,8 @@ using OnlineShop2022.Data;
 namespace OnlineShop2022.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220318192357_data-init")]
-    partial class datainit
+    [Migration("20220322003058_sb")]
+    partial class sb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -284,9 +284,9 @@ namespace OnlineShop2022.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEdI2fgKhx4yBdsidzZh0HNW+s+t4SQ1obgIfipTxvIb22ZvVAi/JxZxdHHFYxVOMQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEDmWtRGUofMXb/s50dLcUifBaRISuX5rFNLkvqmyWq/giqSEVsID0s/FPZSGyBKCw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "84be96a5-fd6a-4e76-b459-0553ea5c826a",
+                            SecurityStamp = "0d1f3306-a371-4a74-92fe-1eb0fd8c848a",
                             Sname = "Admin",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"

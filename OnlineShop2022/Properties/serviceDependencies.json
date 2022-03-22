@@ -1,8 +1,16 @@
 {
   "dependencies": {
     "mssql1": {
+      "ignored": "true",
+      "suggestion": "true",
       "type": "mssql",
       "connectionId": "ConnectionStrings:OnlineShop2022ContextConnection"
+    },
+    "secrets1": {
+      "ignored": "true",
+      "suggestion": "true",
+      "type": "secrets",
+      "connectionId": ""
     }
   }
 }

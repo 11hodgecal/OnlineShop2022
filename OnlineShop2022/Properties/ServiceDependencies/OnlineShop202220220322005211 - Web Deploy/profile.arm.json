@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "healthbot-lf-bot-98e5",
+      "defaultValue": "OnlineShop202220220322005211",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }
